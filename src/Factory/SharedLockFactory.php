@@ -3,6 +3,7 @@
 namespace Fake\ChasterFactory\Factory;
 
 use Fake\ChasterObjects\Enums\SharedLockDurationMode;
+use Fake\ChasterObjects\Enums\SharedLockTag;
 use Fake\ChasterObjects\Objects\Lock\SharedLock;
 use Zenstruck\Foundry\ObjectFactory;
 
@@ -74,6 +75,7 @@ class SharedLockFactory extends ObjectFactory
             'requireContact' => self::faker()->boolean(),
             'requirePassword' => self::faker()->boolean(),
             'unsplashPhoto' => UnsplashPhotoFactory::new(),
+            'tags' => self::faker()->randomElements(SharedLockTag::values(), self::faker()->numberBetween(0, count(SharedLockTag::values()))),
         ];
     }
 
