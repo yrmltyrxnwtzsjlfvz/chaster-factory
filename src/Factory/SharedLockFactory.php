@@ -14,7 +14,7 @@ use Zenstruck\Foundry\ObjectFactory;
  * @method static SharedLock[] createMany(int $number, array|callable $attributes = [])
  * @method static SharedLock[] createSequence(iterable|callable $sequence)
  */
-final class SharedLockFactory extends ObjectFactory
+class SharedLockFactory extends ObjectFactory
 {
     public static function class(): string
     {

@@ -6,7 +6,6 @@
     "require": {
         "php": "^8.2",
         "fake34526/chaster-objects": "^0.4",
-        "fake34526/chaster-dto-bundle": "^0.2",
         "zenstruck/foundry": "^2.0"
     },
     "require-dev": {
