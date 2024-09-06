@@ -16,15 +16,6 @@ use Zenstruck\Foundry\ObjectFactory;
  */
 final class ExtensionPartyFactory extends ObjectFactory
 {
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
-     */
-    public function __construct()
-    {
-    }
-
     public static function class(): string
     {
         return ExtensionParty::class;
@@ -32,35 +23,23 @@ final class ExtensionPartyFactory extends ObjectFactory
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
-     *
-     * @todo add your default values here
      */
     protected function defaults(): array|callable
     {
         return [
-            'config' => null, // TODO add value manually
-            'createdAt' => null, // TODO add value manually
-            'displayName' => null, // TODO add value manually
-            'extensionPartyId' => null, // TODO add value manually
-            'icon' => null, // TODO add value manually
+            'config' => [],
+            'createdAt' => self::faker()->dateTime(),
+            'displayName' => self::faker()->word(),
+            'extensionPartyId' => self::faker()->uuid(),
+            'icon' => self::faker()->optional()->word(),
             'mode' => self::faker()->randomElement(ExtensionMode::cases()),
-            'nbActionsRemaining' => null, // TODO add value manually
-            'nextActionDate' => null, // TODO add value manually
-            'regularity' => null, // TODO add value manually
-            'slug' => null, // TODO add value manually
-            'subtitle' => null, // TODO add value manually
-            'summary' => null, // TODO add value manually
-            'updatedAt' => null, // TODO add value manually
+            'nbActionsRemaining' => self::faker()->numberBetween(-1, 10),
+            'nextActionDate' => self::faker()->optional()->dateTime(),
+            'regularity' => self::faker()->numberBetween(60, 86400),
+            'slug' => self::faker()->word(),
+            'subtitle' => self::faker()->sentence(),
+            'summary' => self::faker()->sentence(),
+            'updatedAt' => self::faker()->dateTime(),
         ];
-    }
-
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
-     */
-    protected function initialize(): static
-    {
-        return $this
-            // ->afterInstantiate(function(ExtensionParty $extensionParty): void {})
-        ;
     }
 }
