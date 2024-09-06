@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "fake34526/chaster-objects": "^0.4",
+        "fake34526/chaster-objects": "0.4.*",
         "zenstruck/foundry": "^2.0"
     },
     "require-dev": {
