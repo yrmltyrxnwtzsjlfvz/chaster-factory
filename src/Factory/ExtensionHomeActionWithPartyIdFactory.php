@@ -15,15 +15,6 @@ use Zenstruck\Foundry\ObjectFactory;
  */
 final class ExtensionHomeActionWithPartyIdFactory extends ObjectFactory
 {
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
-     */
-    public function __construct()
-    {
-    }
-
     public static function class(): string
     {
         return ExtensionHomeActionWithPartyId::class;
@@ -31,28 +22,16 @@ final class ExtensionHomeActionWithPartyIdFactory extends ObjectFactory
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
-     *
-     * @todo add your default values here
      */
     protected function defaults(): array|callable
     {
         return [
-            'badge' => null, // TODO add value manually
-            'description' => null, // TODO add value manually
-            'extensionPartyId' => null, // TODO add value manually
-            'icon' => null, // TODO add value manually
-            'slug' => null, // TODO add value manually
-            'title' => null, // TODO add value manually
+            'badge' => self::faker()->optional()->randomDigit(),
+            'description' => self::faker()->sentence(),
+            'extensionPartyId' => self::faker()->word(),
+            'icon' => self::faker()->word(),
+            'slug' => self::faker()->uuid(),
+            'title' => self::faker()->sentence(),
         ];
-    }
-
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
-     */
-    protected function initialize(): static
-    {
-        return $this
-            // ->afterInstantiate(function(ExtensionHomeActionWithPartyId $extensionHomeActionWithPartyId): void {})
-        ;
     }
 }
