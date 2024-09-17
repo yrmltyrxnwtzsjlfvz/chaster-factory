@@ -27,8 +27,8 @@ final class VerificationPictureConfigFactory extends ObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            '$visibility' => self::faker()->randomElement(VerificationPictureVisibility::cases()),
-            '$peerVerification' => PeerVerificationFactory::createOne(),
+            'visibility' => self::faker()->randomElement(VerificationPictureVisibility::cases()),
+            'peerVerification' => PeerVerificationFactory::createOne(),
         ];
     }
 }
