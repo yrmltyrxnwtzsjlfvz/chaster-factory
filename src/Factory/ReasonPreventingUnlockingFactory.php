@@ -42,7 +42,7 @@ final class ReasonPreventingUnlockingFactory extends ObjectFactory
     protected function initialize(): static
     {
         return $this
-            ->afterInstantiate(function(ReasonPreventingUnlocking $reasonPreventingUnlocking): void {
+            ->afterInstantiate(function (ReasonPreventingUnlocking $reasonPreventingUnlocking): void {
                 $reasonPreventingUnlocking->setIcon($reasonPreventingUnlocking->getIcon());
             });
     }
