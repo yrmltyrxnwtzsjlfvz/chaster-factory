@@ -26,14 +26,35 @@ final class TaskConfigFactory extends ObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'tasks' => TaskFactory::createMany(3),
+            'tasks' => TaskFactory::createMany(self::faker()->randomDigit()),
             'points' => self::faker()->boolean(),
-            'pointsRequired' => self::faker()->randomDigit(),
-            'allowWearerToEditTasks' => self::faker()->boolean(),
-            'allowWearerToConfigureTasks' => self::faker()->boolean(),
-            'preventWearerFromAssigningTasks' => self::faker()->boolean(),
-            'allowWearerToChooseTasks' => self::faker()->boolean(),
+            'pointsRequired' => self::faker()->randomDigit() + 1,
+            'wearerAllowedToEditTasks' => self::faker()->boolean(),
+            'wearerAllowedToConfigureTasks' => self::faker()->boolean(),
+            'wearerPreventedFromAssigningTasks' => self::faker()->boolean(),
+            'wearerAllowedToChooseTasks' => self::faker()->boolean(),
             'actionsOnAbandonedTask' => PunishmentFactory::createMany(3),
         ];
+    }
+
+    /**
+     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
+     */
+    protected function initialize(): static
+    {
+        return $this
+            ->afterInstantiate(function (Config $lock): void {
+                if ($lock->hasPoints()) {
+                    if (empty($lock->getPointsRequired())) {
+                        $lock->setPointsRequired(self::faker()->randomDigit() + 1);
+                    }
+                } else {
+                    $lock->setPointsRequired(0);
+                }
+
+                if ($lock->isWearerAllowedToChooseTasks() && $lock->isWearerPreventedFromAssigningTasks()) {
+                    $lock->setWearerPreventedFromAssigningTasks(false);
+                }
+            });
     }
 }
