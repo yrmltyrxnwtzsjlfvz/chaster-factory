@@ -33,6 +33,8 @@ final class LockFactory extends ObjectFactory
     {
         $minDate = self::faker()->dateTimeBetween('-1 years', '+1 years');
 
+        $maxDate = self::faker()->dateTimeBetween($minDate->format(DATE_RFC3339), '+1 years');
+
         return [
             'id' => self::faker()->md5(),
             'endDate' => self::faker()->dateTimeBetween('-1 years', '+1 years'),
@@ -40,7 +42,7 @@ final class LockFactory extends ObjectFactory
 
             'allowedToViewTime' => self::faker()->boolean(), // TODO add value manually
             'archivedAt' => null, // afterInstantiate
-            'availableHomeActions' => [], // TODO add value manually
+            'availableHomeActions' => ExtensionHomeActionWithPartyIdFactory::createMany(self::faker()->numberBetween(0, 3)) ?? [],
             'canBeUnlockedByMaxLimitDate' => null, // TODO add value manually
             'createdAt' => null, // TODO add value manually
             'deletedAt' => null, // TODO add value manually
@@ -54,17 +56,17 @@ final class LockFactory extends ObjectFactory
             'keyholderArchivedAt' => null, // TODO add value manually
             'limitLockTime' => null, // TODO add value manually
             'lockUnlockable' => null, // TODO add value manually
-            'maxDate' => self::faker()->dateTimeBetween($minDate->format(DATE_RFC3339), '+1 years'), // TODO add value manually
-            'maxLimitDate' => null, // TODO add DateTimeInterface value manually
+            'maxDate' => $maxDate, // TODO add value manually
+            'maxLimitDate' => self::faker()->optional()->dateTimeBetween($maxDate->format(DATE_RFC3339), '+1 years'), // TODO add DateTimeInterface value manually
             'minDate' => $minDate,
-            'reasonsPreventingUnlocking' => ReasonPreventingUnlockingFactory::createMany(self::faker()->numberBetween(0, 3)) ?? [], // TODO add value manually
+            'reasonsPreventingUnlocking' => ReasonPreventingUnlockingFactory::createMany(self::faker()->numberBetween(0, 3)) ?? [],
             'role' => self::faker()->randomElement([LockRole::KEYHOLDER, LockRole::WEARER]),
             'sharedLock' => null, // TODO add value manually
             'startDate' => self::faker()->dateTime($minDate),
             'status' => self::faker()->randomElement(ChasterLockStatus::cases()),
             'testLock' => self::faker()->boolean(),
             'totalDuration' => null, // TODO add value manually
-            'trusted' => self::faker()->boolean(), // TODO add value manually
+            'trusted' => self::faker()->boolean(),
             'unlockedAt' => null, // TODO add value manually
             'updatedAt' => null, // TODO add value manually
             'user' => UserFactory::createOne(),
