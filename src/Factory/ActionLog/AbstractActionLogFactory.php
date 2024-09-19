@@ -15,7 +15,7 @@ abstract class AbstractActionLogFactory extends ObjectFactory
     protected function defaults(): array|callable
     {
         /** @var ActionLogRole $role */
-        $role = self::faker()->randomElement(ActionLogRole::values());
+        $role = self::faker()->randomElement(ActionLogRole::cases());
 
         return [
             'id' => self::faker()->slug(),
