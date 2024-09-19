@@ -20,7 +20,6 @@ abstract class AbstractActionLogFactory extends ObjectFactory
 
         return [
             'id' => self::faker()->slug(),
-            'type' => self::faker()->slug(),
             'lock' => self::faker()->slug(),
             'role' => $role,
             'title' => self::faker()->sentence(),
@@ -42,6 +41,9 @@ abstract class AbstractActionLogFactory extends ObjectFactory
             ->afterInstantiate(function (AbstractActionLog $actionLog): void {
                 if (is_null($actionLog->getExtension())) {
                     $actionLog->setExtension(self::faker()->optional()->randomElement(ChasterExtension::values()));
+                }
+                if (is_null($actionLog->getType())) {
+                    $actionLog->setExtension(self::faker()->slug());
                 }
             });
     }
