@@ -42,6 +42,7 @@ abstract class AbstractActionLogFactory extends ObjectFactory
                 if (is_null($actionLog->getExtension())) {
                     $actionLog->setExtension(self::faker()->optional()->randomElement(ChasterExtension::values()));
                 }
+
                 if (is_null($actionLog->getType())) {
                     $actionLog->setExtension(self::faker()->slug());
                 }
